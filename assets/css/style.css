@@ -1,0 +1,32 @@
+body {
+	background: url(../images/star-city.jpg);
+}
+
+h1, h3, p {
+	color: white;
+}
+
+#name1 {
+	text-align: center;
+}
+
+div .character {
+	border: solid 1px black;
+	padding: 25px;
+	background-color: white;
+}
+
+.attackpower {
+	position: absolute;
+	bottom: 0;
+	color: black;
+	text-align: center;
+}
+
+.charname {
+	position: absolute;
+	z-index: 99;
+	top: 0;
+	color: black;
+	text-align: center;
+}

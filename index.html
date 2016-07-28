@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RPG Game</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+</head>
+<body>
+
+	<div class="header">
+    		<h1 class="text-center">ARROW RPG GAME</h1>
+    		<div class="hero"><h3 class="text-center">Save your city!</h3></div>
+	</div>
+	<div class="container">
+	<div id="charstart">
+	<div class="row">
+		<div class="col-sm-3">
+			<img src="assets/images/greenarrow.jpg" class="character" id="arrow" width="200px"><p id="name1" class="charname"><p id="health1" class="attackpower"></p>
+		</div>
+		<div class="col-sm-3">
+			<img src="assets/images/malcolm.jpg" class="character" id="malcolm" width="200px"><p id="name2" class="charname"></p><p id="health2" class="attackpower"></p>
+		</div>
+		<div class="col-sm-3">
+			<img src="assets/images/deathstroke.jpg" class="character" id="deathstroke" width="200px"><p id="name3" class="charname"></p><p id="health3" class="attackpower"></p>
+		</div>
+		<div class="col-sm-3">
+			<img src="assets/images/ras-al-ghul.jpg" class="character" id="ras" width="200px"><p id="name4" class="charname"></p><p id="health4" class="attackpower"></p>
+		</div>
+	</div>
+	</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="menu"><h3>Your Character</h3><span id="yourpick"></span></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="menu"><h3>Enemies Available to Attack</h3><span id="enemies"></span></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="menu"><h3>Fight Section</h3></div>
+				<button id="attack" class="menu">Attack</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="menu"><h3>Defender</h3><span id="defend"></span></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="message" class="menu"><h3>Choose who to Attack!</h3></div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+	var pic1 = '<div class="col-sm-3"><img src="assets/images/greenarrow.jpg" class="character" id="arrow" width="200px"><p id="name1" class="charname"></p><p id="health1" class="attackpower"></p></div>';
+	var pic2 = '<div class="col-sm-3"><img src="assets/images/malcolm.jpg" class="character" id="malcolm" width="200px"><p id="name2" class="charname"></p><p id="health2" class="attackpower"></p></div>';
+	var pic3 = '<div class="col-sm-3"><img src="assets/images/deathstroke.jpg" class="character" id="deathstroke" width="200px"><p id="name3" class="charname"></p><p id="health3" class="attackpower"></p></div>';
+	var pic4 = '<div class="col-sm-3"><img src="assets/images/ras-al-ghul.jpg" class="character" id="ras" width="200px"><p id="name4" class="charname"></p><p id="health4" class="attackpower"></p></div>';
+
+	var arrowChosen = false;
+	var malcolmChosen = false;
+	var deathstrokeChosen = false;
+	var rasChosen = false;
+	var characterChosen = false;
+	var defenderChosen = false;
+	var seconddefenderChosen = false;
+	var thirddefenderChosen = false;
+	var thedefender = '';
+	var characters = [pic1, pic2, pic3, pic4];
+	var charactersChosen = [arrowChosen, malcolmChosen, deathstrokeChosen, rasChosen];
+
+	var arrow = {
+		name: "Green Arrow",
+		HP: 200,
+		Attack: 10,
+		Counter: 10,
+	}
+
+	var malcolm = {
+		name: "Malcolm Merlyn",
+		HP: 190,
+		Attack: 10,
+		Counter: 10,
+	}
+
+	var deathstroke = {
+		name: "Deathstroke",
+		HP: 180,
+		Attack: 12,
+		Counter: 12,
+	}
+
+	var ras = {
+		name: "Ras Al Ghul",
+		HP: 200,
+		Attack: 20,
+		Counter: 20,
+	}
+
+	$('#name1').text(arrow.name);
+	$('#name2').text(malcolm.name);
+	$('#name3').text(deathstroke.name);
+	$('#name4').text(ras.name);
+
+	$('#health1').text(arrow.HP);
+	$('#health2').text(malcolm.HP);
+	$('#health3').text(deathstroke.HP);
+	$('#health4').text(ras.HP);
+
+$(document).ready(function() {	
+
+	$('#arrow').on('click', function() {
+		if (defenderChosen  === true && arrowChosen === false) {
+			yourcharacter = arrow;
+			console.log(yourcharacter);
+			$('#yourpick').append(pic1);
+			characterChosen = true;
+			arrowChosen = true;
+			charactersChosen.splice(0, 1, true);
+			for (i = 0; i < charactersChosen.length; i++) {
+				if (charactersChosen[i] === false) {
+					$('#enemies').append(characters[i]);
+				}
+			}
+			$('#charstart').html('');
+			$('#message').html("<h3>" + "Start attacking!" + "</h3>");
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+		else if (defenderChosen === false && rasChosen === false) {
+			$('#defend').append(pic1);
+			thedefender = arrow;
+			console.log(thedefender);
+			arrowChosen = true;
+			charactersChosen.splice(0, 1, true);
+			defenderChosen = true;
+			$('#message').html("<h3>" + "Choose your Character!" + "</h3>");
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+	});
+
+	$('#malcolm').on('click', function() {
+		if (defenderChosen  === true && malcolmChosen === false) {
+			yourcharacter = malcolm;
+			$('#yourpick').append(pic2);
+			characterChosen = true;
+			charactersChosen.splice(1, 1, true);
+			malcolmChosen = true;
+			for (i = 0; i < charactersChosen.length; i++) {
+				if (charactersChosen[i] === false) {
+					$('#enemies').append(characters[i]);
+				}
+			}
+			$('#charstart').html('');
+			$('#message').html("<h3>" + "Start attacking!" + "</h3>");
+			$('.hero').html('<h3 class=' + 'text-center' + '>' + "Going to the Dahrk side I see" + '</h2>');
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+		else if (defenderChosen === false && rasChosen === false) {
+			thedefender = malcolm;
+			$('#defend').append(pic2);
+			malcolmChosen = true;
+			charactersChosen.splice(1, 1, true);
+			defenderChosen = true;
+			$('#message').html("<h3>" + "Choose your Character!" + "</h3>");
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+	});
+
+	$('#deathstroke').on('click', function() {
+		if (defenderChosen  === true && deathstrokeChosen === false) {
+			yourcharacter = deathstroke;
+			$('#yourpick').append(pic3);
+			characterChosen = true;
+			charactersChosen.splice(2, 1, true);
+			deathstrokeChosen = true;
+			for (i = 0; i < charactersChosen.length; i++) {
+				if (charactersChosen[i] === false) {
+					$('#enemies').append(characters[i]);
+				}
+			}
+			$('#charstart').html('');
+			$('#message').html("<h3>" + "Start Attacking!" + "</h3>");
+			$('.hero').html('<h3 class=' + 'text-center' + '>' + "Going to the Dahrk side I see" + '</h2>');
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+		else if (defenderChosen === false && rasChosen === false) {
+			$('#defend').append(pic3);
+			thedefender = deathstroke;
+			deathstrokeChosen = true;
+			charactersChosen.splice(2, 1, true);
+			defenderChosen = true;
+			$('#message').html("<h3>" + "Choose your Character!" + "</h3>");
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+	});
+
+	$('#ras').on('click', function() {
+		if (defenderChosen === true && rasChosen === false) {
+			yourcharacter = ras;
+			$('#yourpick').append(pic4);
+			characterChosen = true;
+			charactersChosen.splice(3, 1, true);
+			rasChosen = true;
+			for (i = 0; i < charactersChosen.length; i++) {
+				if (charactersChosen[i] === false) {
+					$('#enemies').append(characters[i]);
+				}
+			}
+			$('#charstart').html('');
+			$('#message').html("<h3>" + "Start Attacking!" + "</h3>");
+			$('.hero').html('<h3 class=' + 'text-center' + '>' + "Going to the Dahrk side I see" + '</h2>');
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+		else if (defenderChosen === false && rasChosen === false) {
+			$('#defend').append(pic4);
+			thedefender = ras;
+			rasChosen = true;
+			charactersChosen.splice(3, 1, true);
+			defenderChosen = true;
+			$('#message').html("<h3>" + "Choose your Character!" + "</h3>");
+			$('#name1').text(arrow.name);
+			$('#name2').text(malcolm.name);
+			$('#name3').text(deathstroke.name);
+			$('#name4').text(ras.name);
+
+			$('#health1').text(arrow.HP);
+			$('#health2').text(malcolm.HP);
+			$('#health3').text(deathstroke.HP);
+			$('#health4').text(ras.HP);
+		}
+	});	
+
+	$('#attack').on('click', function() {
+		if (thedefender.HP <= 0) {
+			defenderChosen = false;
+			return;
+		}
+		if (yourcharacter.HP <= 0) {
+			$('#message').html("<h3>" + "You lose!" + "</h3>");
+			return;
+		}
+		thedefender.HP = thedefender.HP - yourcharacter.Attack;
+		yourcharacter.Attack += 6;
+		if (thedefender.HP <= 0 && yourcharacter.HP > 0) {
+			$('#message').html("<h3>" + "You won the fight! Choose your next enemy!" + "</h3>");
+			$('#defend').html('');
+			defenderChosen = false;
+		}
+		else if (yourcharacter.HP <= 0 && thedefender.HP > 0) {
+				$('#message').html("<h3>" + "You lose!" + "</h3>");
+		}
+		else {
+			yourcharacter.HP = yourcharacter.HP - thedefender.Attack;
+		}
+		console.log(yourcharacter.HP);
+		console.log(thedefender.HP);
+		if (yourcharacter == arrow) {
+			$('#health1').html(yourcharacter.HP);
+		}
+		else if (yourcharacter == malcolm) {
+			$('#health2').html(yourcharacter.HP);
+		}
+		else if (yourcharacter == deathstroke) {
+			$('#health3').html(yourcharacter.HP);
+		}
+		else if (yourcharacter == ras) {
+			$('#health4').html(yourcharacter.HP);
+		}
+
+		if (thedefender == arrow) {
+			$('#health1').html(thedefender.HP);
+		}
+		else if (thedefender == malcolm) {
+			$('#health2').html(thedefender.HP);
+		}
+		else if (thedefender == deathstroke) {
+			$('#health3').html(thedefender.HP);
+		}
+		else if (yourcharacter == ras) {
+			$('#health4').html(thedefender.HP);
+		}
+	});
+
+});
+
+</script>
+</body>
+</html>
